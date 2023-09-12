@@ -8,6 +8,7 @@ public class Main {
         Problem4.main(args);
         Problem5.main(args);
         Problem6.main(args);
+        Problem7.main(args);
     }
 }
 
@@ -195,16 +196,33 @@ class Problem6 {
 
 class Problem7 {
     public static void main(String[] args) {
-        int number = 17;
-        boolean isPrime = true;
-        for (int i = 2; i < number; i++)
+        int number = 0;
+        int length = 10000;
+        int added = 0;
+        int prime = 0;
+        while (added <= length)
         {
-            if (number % i == 0)
-            {
-                isPrime = false;
-                break;
+            number++;
+            if (isPrime(number)) {
+                added++;
+                prime = number;
             }
         }
 
+        System.out.println("Problem 7: " + prime);
+    }
+
+    static boolean isPrime(int n)
+    {
+        // Corner case
+        if (n <= 1)
+            return false;
+
+        // Check from 2 to n-1
+        for (int i = 2; i < n; i++)
+            if (n % i == 0)
+                return false;
+
+        return true;
     }
 }
