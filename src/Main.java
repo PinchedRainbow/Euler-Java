@@ -1,14 +1,21 @@
+import java.util.*;
+
+import static java.util.Arrays.stream;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        Problem1.main(args);
-        Problem2.main(args);
-        Problem3.main(args);
-        Problem4.main(args);
-        Problem5.main(args);
-        Problem6.main(args);
-        Problem7.main(args);
+//        Problem1.main(args);
+//        Problem2.main(args);
+//        Problem3.main(args);
+//        Problem4.main(args);
+//        Problem5.main(args);
+//        Problem6.main(args);
+//        Problem7.main(args);
+//        Problem8.main(args);
+//        Problem9.main(args);
+        Problem16.main(args);
     }
 }
 
@@ -224,5 +231,190 @@ class Problem7 {
                 return false;
 
         return true;
+    }
+}
+
+class Problem8
+{
+    public static void main(String[] args) {
+        String numberStr = "73167176531330624919225119674426574742355349194934" +
+                "96983520312774506326239578318016984801869478851843" +
+                "85861560789112949495459501737958331952853208805511" +
+                "12540698747158523863050715693290963295227443043557" +
+                "66896648950445244523161731856403098711121722383113" +
+                "62229893423380308135336276614282806444486645238749" +
+                "30358907296290491560440772390713810515859307960866" +
+                "70172427121883998797908792274921901699720888093776" +
+                "65727333001053367881220235421809751254540594752243" +
+                "52584907711670556013604839586446706324415722155397" +
+                "53697817977846174064955149290862569321978468622482" +
+                "83972241375657056057490261407972968652414535100474" +
+                "82166370484403199890008895243450658541227588666881" +
+                "16427171479924442928230863465674813919123162824586" +
+                "17866458359124566529476545682848912883142607690042" +
+                "24219022671055626321111109370544217506941658960408" +
+                "07198403850962455444362981230987879927244284909188" +
+                "84580156166097919133875499200524063689912560717606" +
+                "05886116467109405077541002256983155200055935729725" +
+                "71636269561882670428252483600823257530420752963450";
+
+
+        // Do it
+        List<Integer> integers = new ArrayList<>();
+        for (int i = 0; i < numberStr.length(); i ++)
+        {
+            integers.add(Character.getNumericValue(numberStr.charAt(i)));
+        }
+        List<Integer> products = new ArrayList<>();
+
+        List<Integer> window = new ArrayList<>();
+
+        int counter = 12;
+
+        for (int i=0; i < 13; i++){
+            window.add(integers.get(i));
+        }
+
+        while (counter < 999) {
+            products.add(ProductArray(window));
+            window.remove(0);
+            counter++;
+            window.add(integers.get(counter));
+        }
+
+        System.out.println("Problem 8: " + Collections.max(products));
+
+
+
+        int biggestProduct = 0;
+        int length = 13;
+        int[] bigProducts = new int[length];
+        for (int i = 0; i < 1000 - length; i++)
+        {
+            for (int j = 0; j < length ; j++)
+            {
+                bigProducts[j] = Character.getNumericValue(numberStr.charAt(i+j));
+            }
+//            bigProducts[0] = Character.getNumericValue(numberStr.charAt(i));
+//            bigProducts[1] = Character.getNumericValue(numberStr.charAt(i + 1));
+//            bigProducts[2] = Character.getNumericValue(numberStr.charAt(i + 2));
+//            bigProducts[3] = Character.getNumericValue(numberStr.charAt(i + 3));
+
+            int product = ProductArray(bigProducts);
+            if (product > biggestProduct)
+            {
+                biggestProduct = product;
+            }
+        }
+
+        System.out.println("Problem 8: " + biggestProduct);
+    }
+    
+    private static int ProductArray(int[] list)
+    {
+        int product = 1;
+        for (int number: list)
+        {
+            product *= number;
+        }
+
+        return product;
+    }
+
+    private static int ProductArray(List<Integer> list)
+    {
+        int product = 1;
+        for (int number: list)
+        {
+            product *= number;
+        }
+
+        return product;
+    }
+}
+
+
+class Problem9{
+    public static void main(String[] args) {
+        int a;
+        int b;
+        int c;
+
+        int limit = 1000;
+
+        for (int i = 1; i < limit; i++)
+        {
+            for (int j = 2; j < limit; j++)
+            {
+                for (int k = 3; k < limit; k++)
+                {
+                    a = i;
+                    b = j;
+                    c = k;
+                    int product = (int) (Math.pow(a, 2) + Math.pow(b, 2));
+                    if (product == Math.pow(c, 2) && a < b && b < c && a + b + c == 1000)
+                    {
+                        System.out.println("A, B, C: " + a + ", " + b + ", " + c);
+                        System.out.println("A, B, C: " + a*b*c);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+class Problem10
+{
+    public static void main(String[] args) {
+        ArrayList<Integer> primes = new ArrayList<>();
+        int sum = 0;
+        int counter = 1;
+
+        while (sum < 2_000_000)
+        {
+            if (isPrime(counter))
+            {
+                if (sum < 2_000_000)
+                {
+                    sum += counter;
+                }
+            }
+            counter++;
+        }
+        System.out.println(sum);
+
+    }
+
+    static boolean isPrime(int n)
+    {
+        // Corner case
+        if (n <= 1)
+            return false;
+
+        // Check from 2 to n-1
+        for (int i = 2; i < n; i++)
+            if (n % i == 0)
+                return false;
+
+        return true;
+    }
+}
+
+
+class Problem16
+{
+    public static void main(String[] args) {
+        double numbers = Math.pow(2, 1000);
+        String value = String.valueOf(numbers);
+        int sum = 0;
+        for (int i = 0; i < value.length(); i++)
+        {
+            int number = Character.getNumericValue(value.charAt(i));
+            sum += number;
+        }
+
+        System.out.println("Problem 16: " + sum);
     }
 }
